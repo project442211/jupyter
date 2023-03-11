@@ -1,0 +1,13 @@
+version: "3"
+
+services:
+  jupyter:
+    image: jupyter/datascience-notebook
+    user: root
+    volumes:
+      - .:/home/jovyan/work/
+      - /home/project/orchestrator/src/models:/src/models:rw
+      - ./configure_environment.sh:/usr/local/bin/before-notebook.d/configure_environment.sh
+    ports:
+      - 8888:8888
+    command: start-notebook.sh --notebook-dir=/src/models --ServerApp.token='' --ServerApp.password='' --ServerApp.disable_check_xsrf=True
